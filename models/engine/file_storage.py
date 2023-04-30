@@ -81,7 +81,4 @@ class FileStorage:
 
     def count(self, cls=None):
         """A method to count the number of objects"""
-        if cls is None:
-            return self.__session.query(models.Base).count()
-        else:
-            return self.__session.query(classes[cls]).count()
+        return len(self.all(cls))
