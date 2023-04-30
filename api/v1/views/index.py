@@ -4,17 +4,14 @@ from api.v1.views import app_views
 from flask import Flask, jsonify, Blueprint
 from models import storage
 
-app = Flask(__name__)
-app.register_blueprint(app_views)
 
-
-@app.route('/status', methods=["GET"])
+@app_views.route('/status', methods=["GET"])
 def index():
     '''index'''
     return jsonify({'status': 'OK'})
 
 
-@app.route('/stats', methods=["GET"])
+@app_views.route('/stats', methods=["GET"])
 def stats():
     ''' Get stats '''
     return jsonify({'amenities': storage.count('Amenity'),
