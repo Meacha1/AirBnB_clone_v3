@@ -61,7 +61,6 @@ def create_place(city_id):
         abort(404)
     place = Place(**request.get_json())
     storage.new(place)
-    storage.save()
     return jsonify(place.to_dict()), 201
 
 
