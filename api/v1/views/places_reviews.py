@@ -20,7 +20,7 @@ def get_reviews(place_id):
     return jsonify(reviews_list)
 
 
-@app_views.routr('/reviews/<review_id>', methods=['GET'])
+@app_views.route('/reviews/<review_id>', methods=['GET'])
 def get_review(review_id):
     """Retrieves a single Review object"""
     review = storage.get(Review, review_id)
