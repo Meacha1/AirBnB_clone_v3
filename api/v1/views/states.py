@@ -4,12 +4,14 @@ from api.v1.views import app_views
 from flask import jsonify, abort, request
 from models import storage
 from models.state import State
+from datetime import datetime
+import uuid
 
 
 @app_views.route('/api/v1/states', methods=['GET'])
 def get_states():
     """Retrieves the list of all State objects"""
-    states = storage.all(State)
+    states = storage.all('State')
     states_list = []
     for state in states.values():
         states_list.append(state.to_dict())
