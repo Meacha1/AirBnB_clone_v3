@@ -8,6 +8,7 @@ from models.state import State
 from models.place import Place
 from models.user import User
 
+
 @app_views.route('/cities/<city_id>/places', methods=['GET'])
 def get_places(city_id):
     """Retrieves the list of all Place objects"""
@@ -59,6 +60,7 @@ def create_place(city_id):
         abort(404)
     place = Place(name=data['name'], user=user)
     storage.add(place)
+    storage.save()
     return jsonify(place.to_dict()), 201
 
 
@@ -71,8 +73,10 @@ def update_place(place_id):
     data = request.get_json()
     if data is None:
         abort(400)
+    if not request.json:
+        abort(400, 'Not a JSON')
     for key, value in data.items():
         if key not in ['id', 'user_id', 'city_id', 'created_at', 'updated_at']:
             setattr(place, key, value)
     storage.save()
-    return jsonify(place.to_dict()), 200    
+    return jsonify(place.to_dict()), 200
