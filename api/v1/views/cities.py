@@ -6,6 +6,7 @@ from models import storage
 from models.city import City
 from models.state import State
 
+
 @app_views.route('/states/<state_id>/cities', methods=['GET'])
 def get_cities(state_id):
     """Retrieves the list of all City objects"""
@@ -50,5 +51,5 @@ def create_city(state_id):
         abort(400, 'Missing name')
     new_city = City(**request.get_json())
     new_city.state_id = state_id
-    new_city.save()
+    storage.new(new_city)
     return jsonify(new_city.to_dict()), 201
