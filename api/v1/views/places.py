@@ -59,7 +59,7 @@ def create_place(city_id):
     user = storage.get(User, data['user_id'])
     if user is None:
         abort(404)
-    place = Place(name=data['name'], user=user)
+    place = Place(**request.get_json())
     storage.new(place)
     storage.save()
     return jsonify(place.to_dict()), 201
