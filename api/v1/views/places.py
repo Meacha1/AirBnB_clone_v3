@@ -60,7 +60,7 @@ def create_place(city_id):
     if user is None:
         abort(404)
     place = Place(name=data['name'], user=user)
-    storage.add(place)
+    storage.new(place)
     storage.save()
     return jsonify(place.to_dict()), 201
 
