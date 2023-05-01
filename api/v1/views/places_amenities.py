@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Module for Place-Amenity objects that handles all default RESTFul API actions"""
+"""Place-Amenity objects that handles all default RESTFul API actions"""
 from api.v1.views import app_views
 from flask import jsonify, abort, request
 from models import storage
@@ -25,7 +25,8 @@ def get_place_amenities(place_id):
     return jsonify(amenities_list)
 
 
-@app_views.route('/places/<place_id>/amenities/<amenity_id>', methods=['DELETE'])
+@app_views.route('/places/<place_id>/amenities/<amenity_id>',
+                 methods=['DELETE'])
 def delete_place_amenity(place_id, amenity_id):
     """Deletes a Amenity object to a Place"""
     place = storage.get(Place, place_id)
@@ -47,7 +48,8 @@ def delete_place_amenity(place_id, amenity_id):
     return jsonify({}), 200
 
 
-@app_views.route('/places/<place_id>/amenities/<amenity_id>', methods=['POST'])
+@app_views.route('/places/<place_id>/amenities/<amenity_id>',
+                 methods=['POST'])
 def link_place_amenity(place_id, amenity_id):
     """Links a Amenity object to a Place"""
     place = storage.get(Place, place_id)
@@ -67,4 +69,3 @@ def link_place_amenity(place_id, amenity_id):
         place.amenity_ids.append(amenity_id)
         storage.save()
     return jsonify(amenity.to_dict()), 201
-
